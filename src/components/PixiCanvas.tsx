@@ -20,13 +20,15 @@ const PixiCanvas: React.FC = () => {
   const PLAYER_WIDTH = 50
   const PLAYER_HEIGHT = 50
 
-  const PLAYER_SPEED = 20
+  const PLAYER_SPEED = 0.02
 
   const INITIAL_PLAYER_POS_X = STAGE_WIDHT / 2 - PLAYER_WIDTH / 2
   const INITIAL_PLAYER_POS_Y = STAGE_HEIGHT / 2 - PLAYER_HEIGHT / 2
 
   const [playerPosX, setPlayerPosX] = React.useState(INITIAL_PLAYER_POS_X)
   const [playerPosY, setPlayerPosY] = React.useState(INITIAL_PLAYER_POS_Y)
+
+  const [pressedKeys, setPressedKeys] = React.useState<Set<string>>(new Set())
 
   // INITIALIZATION
   useEffect(() => {
@@ -63,22 +65,64 @@ const PixiCanvas: React.FC = () => {
     else {
       // UPDATE PLAYER POSITION
       playerRef.current?.position.set(playerPosX, playerPosY)
-    }
-  }, [playerPosX, playerPosY])
 
-  // GetKeyDown Function for Keyboard
+      if (pressedKeys.has('a')) {
+        movePlayerLeft()
+      }
+      if (pressedKeys.has('d')) {
+        movePlayerRight()
+      }
+      if (pressedKeys.has('s')) {
+        movePlayerDown()
+      }
+      if (pressedKeys.has('w')) {
+        movePlayerUp()
+      }
+    }
+  }, [playerPosX, playerPosY, pressedKeys])
+
+  // Function which keeps track of what keys are currently pressed
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'a') movePlayerLeft()
-      if (event.key === 'd') movePlayerRight()
-      if (event.key === 'w') movePlayerUp()
-      if (event.key === 's') movePlayerDown()
+      if (event.key === 'a') {
+        setPressedKeys((prev) => new Set([...prev, event.key]))
+      }
+      if (event.key === 'd') {
+        setPressedKeys((prev) => new Set([...prev, event.key]))
+      }
+      if (event.key === 's') {
+        setPressedKeys((prev) => new Set([...prev, event.key]))
+      }
+      if (event.key === 'w') {
+        setPressedKeys((prev) => new Set([...prev, event.key]))
+      }
+    }
+
+    const handleKeyUp = (event: KeyboardEvent) => {
+      if (event.key === 'a')
+        setPressedKeys(
+          (prev) => new Set([...prev].filter((key) => key !== 'a'))
+        )
+      if (event.key === 'd')
+        setPressedKeys(
+          (prev) => new Set([...prev].filter((key) => key !== 'd'))
+        )
+      if (event.key === 's')
+        setPressedKeys(
+          (prev) => new Set([...prev].filter((key) => key !== 's'))
+        )
+      if (event.key === 'w')
+        setPressedKeys(
+          (prev) => new Set([...prev].filter((key) => key !== 'w'))
+        )
     }
 
     window.addEventListener('keydown', handleKeyDown)
+    window.addEventListener('keyup', handleKeyUp)
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown)
+      window.removeEventListener('keyup', handleKeyUp)
     }
   }, [])
 
@@ -92,16 +136,25 @@ const PixiCanvas: React.FC = () => {
   // MOVE PLAYER RIGHT
   const movePlayerRight = () => {
     // TODO
+    setPlayerPosX((prev) => {
+      return prev + PLAYER_SPEED
+    })
   }
 
   // MOVE PLAYER UP
   const movePlayerUp = () => {
     // TODO
+    setPlayerPosY((prev) => {
+      return prev - PLAYER_SPEED
+    })
   }
 
   // MOVE PLAYER DOWN
   const movePlayerDown = () => {
     // TODO
+    setPlayerPosY((prev) => {
+      return prev + PLAYER_SPEED
+    })
   }
 
   // MOVE PLAYER NORTH WEST
