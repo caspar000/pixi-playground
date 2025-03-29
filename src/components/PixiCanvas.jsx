@@ -9,10 +9,10 @@ import { IconSouthWest } from '@/assets/IconSouthWest'
 
 import { Button } from './Button'
 
-const PixiCanvas: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const appRef = useRef<Application | null>(null)
-  const playerRef = useRef<Graphics | null>(null)
+const PixiCanvas = () => {
+  const containerRef = useRef(null)
+  const appRef = useRef(null)
+  const playerRef = useRef(null)
 
   const STAGE_WIDHT = 600
   const STAGE_HEIGHT = 600
@@ -55,7 +55,7 @@ const PixiCanvas: React.FC = () => {
         containerRef.current?.appendChild(app.canvas)
       })()
     }
-  }, [])
+  }, [playerPosX, playerPosY])
 
   // UPDATE FUNCTION
   useEffect(() => {
@@ -65,22 +65,6 @@ const PixiCanvas: React.FC = () => {
       playerRef.current?.position.set(playerPosX, playerPosY)
     }
   }, [playerPosX, playerPosY])
-
-  // GetKeyDown Function for Keyboard
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'a') movePlayerLeft()
-      if (event.key === 'd') movePlayerRight()
-      if (event.key === 'w') movePlayerUp()
-      if (event.key === 's') movePlayerDown()
-    }
-
-    window.addEventListener('keydown', handleKeyDown)
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [])
 
   // MOVE PLAYER LEFT
   const movePlayerLeft = () => {
@@ -144,7 +128,7 @@ const PixiCanvas: React.FC = () => {
             <IconNorthEast />
           </Button>
         </div>
-        <div className="flex items-center justify-center gap-12">
+        <div className="flex items-center justify-center gap-4">
           <Button onClick={movePlayerLeft}>Move Left</Button>
           <Button onClick={movePlayerRight}>Move Right</Button>
         </div>
