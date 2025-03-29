@@ -1,17 +1,6 @@
-# React-ts-vite-eslint-prettier-tailwindcss boilerplate
-An update &amp; configured [ReactJS](https://reactjs.org), [TypeScript](https://www.typescriptlang.org), [Vite](https://vitejs.dev), [Tailwindcss](https://tailwindcss.com), [Eslint](https://eslint.org), [Prettier](https://prettier.io) boilerplate for 2023
-
-# Getting Started
-```bash
-npx degit bezlant/react-ts-vite-eslint-prettier-tailwind my-awesome-app
-cd my-awesome-app
-yarn install
-yarn dev
-```
-
-# Features
-- [Speedy Web Compiler](https://swc.rs/)  for fast compilation times
-- Relative paths
-- Imports sort & Unused imports
-- [Svgr](https://react-svgr.com/)
-- Prettier & Eslint for Tailwindcss
+# How to Set Up this Application
+1. Download the application by clicking **Code** -> **Download ZIP**
+2. Extract the zip into desired location
+3. Open `CMD` in unzipped folder
+4. Run `npm install` to install packages
+5. Run `npm run dev` to start development server
