@@ -61,6 +61,12 @@ const PixiCanvas = () => {
   }, [INITIAL_PLAYER_POS_X, INITIAL_PLAYER_POS_Y])
 
   // UPDATE FUNCTION
+  // This is an update function which will be called
+  // every "tick". A "tick" is a frame of the animation
+  // loop which can be controlled depending on our needs.
+  // Currently, the tick is set to 60 FPS, but it can be
+  // changed it to any value you want in the initialize
+  // function
   useEffect(() => {
     const app = appRef.current
     const player = playerRef.current
@@ -89,7 +95,9 @@ const PixiCanvas = () => {
     }
   }, [playerDirection])
 
-  // Function which keeps track of what keys are currently pressed
+  // This function is "listening" for a keyboard event
+  // and changes the player direction according to the
+  // pressed key
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === 'a') {
@@ -112,67 +120,62 @@ const PixiCanvas = () => {
     }
   }, [playerDirection])
 
-  // CHANGE PLAYER DIRECTION
-  // UP | DOWN | LEFT | RIGHT
+  // =====================
+  // YOUR CODE STARTS HERE
+  // =====================
+
+  // This functions changes the direction of the player. It takes
+  // the following arguments:
+  // DIRECTION_UP | DIRECTION_DOWN | DIRECTION_LEFT | DIRECTION_RIGHT
   const changePlayerDirection = (direction) => {
     // TODO
-    // You cannot change direction to be opposite of current direction
-    console.log(`direction: ${direction}, playerDirection: ${playerDirection}`)
-    switch (direction) {
-      case DIRECTION_UP:
-        if (playerDirection !== DIRECTION_DOWN) {
-          setPlayerDirection(DIRECTION_UP)
-        }
-        break
-      case DIRECTION_DOWN:
-        if (playerDirection !== DIRECTION_UP) {
-          setPlayerDirection(DIRECTION_DOWN)
-        }
-        break
-      case DIRECTION_LEFT:
-        if (playerDirection !== DIRECTION_RIGHT) {
-          setPlayerDirection(DIRECTION_LEFT)
-        }
-        break
-      case DIRECTION_RIGHT:
-        if (playerDirection !== DIRECTION_LEFT) {
-          setPlayerDirection(DIRECTION_RIGHT)
-        }
-        break
-    }
+    // You have to modify this function in a way that makes
+    // the player character change direction ONLY when it is
+    // not opposite to the current direction. For example:
+    // if the player is moving up, it should not be able to
+    // change direction to down.
+    setPlayerDirection(direction)
   }
 
   // MOVE PLAYER LEFT
   const movePlayerLeft = (player) => {
     // TODO
-    if (player.x > 0) {
-      player.x -= PLAYER_SPEED
-    }
+    // You have to modify this function to restrict the player
+    // movement to the LEFT side of the screen so that it does
+    // not go out of bounds
+    player.x -= PLAYER_SPEED
   }
 
   // MOVE PLAYER RIGHT
   const movePlayerRight = (player) => {
     // TODO
-    if (player.x < STAGE_WIDHT - PLAYER_WIDTH) {
-      player.x += PLAYER_SPEED
-    }
+    // You have to modify this function to restrict the player
+    // movement to the RIGHT side of the screen so that it does
+    // not go out of bounds
+    player.x += PLAYER_SPEED
   }
 
   // MOVE PLAYER UP
   const movePlayerUp = (player) => {
     // TODO
-    if (player.y > 0) {
-      player.y -= PLAYER_SPEED
-    }
+    // You have to modify this function to restrict the player
+    // movement to the UP side of the screen so that it does
+    // not go out of bounds
+    player.y -= PLAYER_SPEED
   }
 
   // MOVE PLAYER DOWN
   const movePlayerDown = (player) => {
     // TODO
-    if (player.y < STAGE_HEIGHT - PLAYER_HEIGHT) {
-      player.y += PLAYER_SPEED
-    }
+    // You have to modify this function to restrict the player
+    // movement to the DOWN side of the screen so that it does
+    // not go out of bounds
+    player.y += PLAYER_SPEED
   }
+
+  // =====================
+  // YOUR CODE ENDS HERE
+  // =====================
 
   return (
     <div className="flex flex-col gap-1">
